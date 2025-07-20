@@ -1,4 +1,5 @@
 # User Management System - ASP.NET Core MVC
+<img width="1909" height="962" alt="image" src="https://github.com/user-attachments/assets/e92c915d-b1e2-41dd-a34b-c62c85192b9f" />
 
  User Management System built with ASP.NET Core MVC featuring:
 - Full CRUD (Create, Read, Update, Delete)
@@ -94,7 +95,11 @@ Filters the user list dynamically.
 ---
 
 ## 📷 Screenshots
-<img width="1914" height="972" alt="image" src="https://github.com/user-attachments/assets/c679a9af-f17b-4c2f-84c4-5a5306fd583d" />
+<img width="1500" height="700" alt="image" src="https://github.com/user-attachments/assets/c679a9af-f17b-4c2f-84c4-5a5306fd583d" />
+<img width="1500" height="700" alt="image" src="https://github.com/user-attachments/assets/88d9f007-d0d3-4b0c-9683-d8dd4ec66734" />
+<img width="1500" height="700" alt="image" src="https://github.com/user-attachments/assets/3db35d35-a21c-4db2-a24b-04c84c5dccc8" />
+
+
 
 
 ---
