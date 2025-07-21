@@ -1,0 +1,32 @@
+﻿@model User
+
+<div class="modal-header">
+    <h5 class="modal-title">Create User</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+    <form id="userForm" asp-action="Create" method="post">
+        <div class="mb-2">
+            <label>Name</label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <div class="mb-2">
+            <label>Email</label>
+            <input asp-for="Email" class="form-control" />
+        </div>
+        <div class="mb-2">
+            <label>Age</label>
+            <input asp-for="Age" class="form-control" />
+        </div>
+        <div class="mb-2">
+            <label>Status</label>
+            <select asp-for="Status" class="form-control">
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>

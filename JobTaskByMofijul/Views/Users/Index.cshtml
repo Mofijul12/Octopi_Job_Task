@@ -1,0 +1,125 @@
+﻿@model IEnumerable<User>
+
+<h2>User List</h2>
+
+<div class="row g-2 mb-3">
+    <div class="col-md-3">
+        <input type="text" id="searchName" placeholder="Search by Name" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <input type="text" id="searchEmail" placeholder="Search by Email" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <select id="statusFilter" class="form-control">
+            <option value="">All Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select id="sortOrder" class="form-control">
+            <option value="">Sort by Age</option>
+            <option value="age_asc">Age Ascending</option>
+            <option value="age_desc">Age Descending</option>
+        </select>
+    </div>
+</div>
+
+<button class="btn btn-success mb-3" id="btnCreate">+ Add User</button>
+
+<div id="userTable">
+    @Html.Partial("_UserTable", Model)
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        
+        function loadUsers() {
+            $.ajax({
+                url: '/Users/Search',
+                type: 'GET',
+                data: {
+                    searchName: $('#searchName').val(),
+                    searchEmail: $('#searchEmail').val(),
+                    status: $('#statusFilter').val(),
+                    sortOrder: $('#sortOrder').val()
+                },
+                success: function (data) {
+                    $('#userTable').html(data);
+                }
+            });
+        }
+
+       
+        $(document).ready(function () {
+            loadUsers();
+        });
+
+       
+        $('#searchName, #searchEmail, #statusFilter, #sortOrder').on('input change', function () {
+            loadUsers();
+        });
+
+       
+        $('#btnCreate').click(function () {
+            $.get('/Users/Create', function (data) {
+                $('#modalContent').html(data);
+                $('#userModal').modal('show');
+            });
+        });
+
+  
+        $(document).on('click', '.btn-edit', function () {
+            var id = $(this).data('id');
+            $.get('/Users/Edit/' + id, function (data) {
+                $('#modalContent').html(data);
+                $('#userModal').modal('show');
+            });
+        });
+
+       
+        $(document).on('submit', '#userForm', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: form.serialize(),
+                success: function () {
+                    $('#userModal').modal('hide');
+                    loadUsers();
+                },
+                error: function () {
+                    alert('Error submitting form!');
+                }
+            });
+        });
+
+        
+        $(document).on('click', '.btn-delete', function () {
+            var id = $(this).data('id');
+
+            if (confirm('Are you sure you want to delete this user?')) {
+                $.ajax({
+                    url: '/Users/DeleteConfirmed/' + id,
+                    type: 'POST',
+                    success: function () {
+                        loadUsers();  
+                    },
+                    error: function () {
+                        alert('Failed to delete user.');
+                    }
+                });
+            }
+        });
+    </script>
+}
